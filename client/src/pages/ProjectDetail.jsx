@@ -8,6 +8,7 @@ export default function ProjectDetail() {
   const [item, setItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imgError, setImgError] = React.useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -101,10 +102,11 @@ export default function ProjectDetail() {
               transition={{ duration: 0.3 }}
               className="relative overflow-hidden rounded-2xl shadow-2xl"
             >
-              {item.imageUrl ? (
+              {Boolean(item.imageUrl?.trim()) && !imgError ? (
                 <img 
                   src={item.imageUrl} 
-                  alt={item.title} 
+                  alt={item.title}
+                  onError={() => setImgError(true)} 
                   className="w-full aspect-video object-cover"
                 />
               ) : (
